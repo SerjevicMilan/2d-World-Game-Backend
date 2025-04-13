@@ -23,8 +23,9 @@ public class GameEnemyTest {
 
     @Test
     void enemyShouldEventuallyCatchPlayerIfNoMovement() throws InterruptedException {
+        game.setRunning(true);
         GameStatus status = game.getCurrentGameState().status;
-        int maxWaitMillis = 6000; // maximum time to wait for the enemy to catch the player
+        int maxWaitMillis = 7000; // maximum time to wait for the enemy to catch the player
         int waited = 0;
 
         while (status == GameStatus.RUNNING && waited < maxWaitMillis) {

@@ -13,8 +13,13 @@ public class GameController {
         this.game = game;
     }
 
+    @GetMapping("/init")
+    public WorldLayout getInitialWorld(WorldLayout layout) {
+        return game.getWorlLayout();
+    }
+
     @GetMapping("/state")
-    public GameState getState() {
+    public GameState getCurrentState() {
         return game.getCurrentGameState();
     }
 
@@ -23,5 +28,11 @@ public class GameController {
         game.updatePlayer(cmd.getDirection());
         return game.getCurrentGameState();
     }
+
+    @PostMapping("/ready")
+    public void clientReady() {
+        game.setRunning(true);
+    }
+
 }
 

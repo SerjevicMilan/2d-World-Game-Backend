@@ -2,7 +2,7 @@ package sejevic.com._DWorldGenerationGame;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sejevic.com._DWorldGenerationGame.core.game.WorldState;
+import sejevic.com._DWorldGenerationGame.core.world.WorldState;
 import sejevic.com._DWorldGenerationGame.core.utils.Coordinate;
 
 import java.util.List;

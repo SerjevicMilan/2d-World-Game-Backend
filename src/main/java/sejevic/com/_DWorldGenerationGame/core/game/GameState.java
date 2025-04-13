@@ -5,12 +5,11 @@ import sejevic.com._DWorldGenerationGame.core.utils.Coordinate;
 
 import java.util.List;
 
+@Component
 public class GameState {
-    public List<Coordinate> floors;
-    public List<Coordinate> walls;
-    public List<Coordinate> coins;
     public Coordinate player;
     public Coordinate enemy;
-    public boolean isGameOver;
+    public List<Coordinate> coins;
     public GameStatus status;
+    public boolean isGameOver;
 }

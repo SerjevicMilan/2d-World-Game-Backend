@@ -1,9 +1,9 @@
-package sejevic.com._DWorldGenerationGame.core.game;
+package sejevic.com._DWorldGenerationGame.core.world;
 
 import org.springframework.stereotype.Component;
 import sejevic.com._DWorldGenerationGame.core.enemy.EnemyPathGenerator;
+import sejevic.com._DWorldGenerationGame.core.game.GameStatus;
 import sejevic.com._DWorldGenerationGame.core.utils.Coordinate;
-import sejevic.com._DWorldGenerationGame.core.world.World;
 
 import java.util.ArrayList;
 import java.util.List;

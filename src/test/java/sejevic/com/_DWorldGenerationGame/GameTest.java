@@ -1,5 +1,6 @@
 package sejevic.com._DWorldGenerationGame;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ import static com.google.common.truth.Truth.assertThat;
 public class GameTest {
     @Autowired
     private  Game game;
+
+    @BeforeEach
+    public void setGameRuning() {
+        game.setRunning(true);
+    }
 
 
     @Test
