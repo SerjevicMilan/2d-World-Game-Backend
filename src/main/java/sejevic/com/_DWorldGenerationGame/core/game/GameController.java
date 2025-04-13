@@ -4,35 +4,41 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000") // your frontend URL
+@CrossOrigin(origins = "http://localhost:3000") // adjust for frontend
 public class GameController {
 
-    private final Game game;
+    private final GameService gameService;
 
-    public GameController(Game game) {
-        this.game = game;
+    public GameController(GameService gameService) {
+        this.gameService = gameService;
     }
 
     @GetMapping("/init")
-    public WorldLayout getInitialWorld(WorldLayout layout) {
-        return game.getWorlLayout();
+    public WorldLayout getInitialWorld(@RequestParam String sessionId) {
+        return gameService.getOrCreateGame(sessionId).getWorlLayout();
     }
 
     @GetMapping("/state")
-    public GameState getCurrentState() {
-        return game.getCurrentGameState();
+    public GameState getCurrentState(@RequestParam String sessionId) {
+        return gameService.getOrCreateGame(sessionId).getCurrentGameState();
     }
 
     @PostMapping("/move")
-    public GameState move(@RequestBody MoveCommand cmd) {
+    public GameState move(@RequestParam String sessionId, @RequestBody MoveCommand cmd) {
+        Game game = gameService.getOrCreateGame(sessionId);
         game.updatePlayer(cmd.getDirection());
         return game.getCurrentGameState();
     }
 
     @PostMapping("/ready")
-    public void clientReady() {
-        game.setRunning(true);
+    public void clientReady(@RequestParam String sessionId) {
+        gameService.getOrCreateGame(sessionId).setRunning(true);
     }
 
+    @PostMapping("/restart")
+    public void restartGame(@RequestParam String sessionId) {
+        gameService.restartGame(sessionId);
+    }
 }
+
 
