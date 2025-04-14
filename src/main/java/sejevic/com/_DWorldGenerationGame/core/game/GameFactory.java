@@ -20,4 +20,13 @@ public class GameFactory {
         config.setSeed((int)(Math.random() * Integer.MAX_VALUE)); // New seed every time
         return new Game(new WorldState(), config);
     }
+
+    public Game createNewGame(String width, String height) {
+        GameProperties config = new GameProperties();
+        config.setWidth(Integer.parseInt(width));
+        config.setHeight(Integer.parseInt(height));
+        config.setDensity(defaultProperties.getDensity());
+        config.setSeed((int)(Math.random() * Integer.MAX_VALUE)); // New seed every time
+        return new Game(new WorldState(), config);
+    }
 }

@@ -15,6 +15,10 @@ public class GameService {
         this.gameFactory = gameFactory;
     }
 
+    public Game getOrCreateGame(String width, String height, String sessionId) {
+        return games.computeIfAbsent(sessionId, id -> gameFactory.createNewGame(width, height));
+    }
+
     public Game getOrCreateGame(String sessionId) {
         return games.computeIfAbsent(sessionId, id -> gameFactory.createNewGame());
     }

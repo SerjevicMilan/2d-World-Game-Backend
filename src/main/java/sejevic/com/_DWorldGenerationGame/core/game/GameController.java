@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000") // adjust for frontend
+@CrossOrigin(origins = "http://localhost:5173")
 public class GameController {
 
     private final GameService gameService;
@@ -14,13 +14,13 @@ public class GameController {
     }
 
     @GetMapping("/init")
-    public WorldLayout getInitialWorld(@RequestParam String sessionId) {
-        return gameService.getOrCreateGame(sessionId).getWorlLayout();
+    public WorldLayout getInitialWorld(@RequestParam String width, @RequestParam String height,@RequestParam String sessionId) {
+        return gameService.getOrCreateGame(width,height, sessionId).getWorlLayout();
     }
 
     @GetMapping("/state")
-    public GameState getCurrentState(@RequestParam String sessionId) {
-        return gameService.getOrCreateGame(sessionId).getCurrentGameState();
+    public GameState getCurrentState(@RequestParam String width, @RequestParam String height, @RequestParam String sessionId) {
+        return gameService.getOrCreateGame(width,height, sessionId).getCurrentGameState();
     }
 
     @PostMapping("/move")
