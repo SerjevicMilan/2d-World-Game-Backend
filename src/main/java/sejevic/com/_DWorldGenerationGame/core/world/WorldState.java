@@ -141,8 +141,8 @@ public class WorldState {
         int x = 0;
         int y = 0;
 
-        if (direction == 'W') y += 1; // Move up
-        if (direction == 'S') y -= 1; // Move down
+        if (direction == 'W') y -= 1; // Move up
+        if (direction == 'S') y += 1; // Move down
         if (direction == 'A') x -= 1; // Move left
         if (direction == 'D') x += 1; // Move right
 
