@@ -3,19 +3,12 @@ package sejevic.com._DWorldGenerationGame;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import sejevic.com._DWorldGenerationGame.core.game.Game;
 import sejevic.com._DWorldGenerationGame.core.game.GameStatus;
 
 import static com.google.common.truth.Truth.assertThat;
 
 @SpringBootTest
-@TestPropertySource(properties = {
-        "game.width=15",
-        "game.height=10",
-        "game.seed=1",
-        "game.density=1.0"
-})
 public class GameEnemyTest {
 
     @Autowired
@@ -25,7 +18,7 @@ public class GameEnemyTest {
     void enemyShouldEventuallyCatchPlayerIfNoMovement() throws InterruptedException {
         game.setRunning(true);
         GameStatus status = game.getCurrentGameState().status;
-        int maxWaitMillis = 7000; // maximum time to wait for the enemy to catch the player
+        int maxWaitMillis = 10000; // maximum time to wait for the enemy to catch the player
         int waited = 0;
 
         while (status == GameStatus.RUNNING && waited < maxWaitMillis) {

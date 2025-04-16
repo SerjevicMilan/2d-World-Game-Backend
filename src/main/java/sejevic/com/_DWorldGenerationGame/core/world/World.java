@@ -20,8 +20,6 @@ public class World {
     private List<Hallway> hallways = new ArrayList<>();
     private int worldHeight;
     private int worldWidth;
-    private final int maxRoomSize = 10;//both width and height
-    private final int minRoomSize = 2;//both width and height
     double worldDensity;
     private Random randomGenerator;
 
@@ -52,7 +50,7 @@ public class World {
     //generate Rooms and Hallways
     private void generateWorld() {
         //Initialise room generator
-        RoomGenerator RG = new RoomGenerator(randomGenerator, worldHeight, worldWidth, minRoomSize, maxRoomSize);
+        RoomGenerator RG = new RoomGenerator(randomGenerator, worldHeight, worldWidth);
         HallwaysGenerator HG;
 
         //Generate rooms

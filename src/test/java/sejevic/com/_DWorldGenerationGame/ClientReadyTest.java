@@ -4,23 +4,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@TestPropertySource(properties = {
-        "game.width=15",
-        "game.height=10",
-        "game.seed=1",
-        "game.density=1.0"
-})
 public class ClientReadyTest {
     @Autowired
     private MockMvc mockMvc;
@@ -30,14 +23,16 @@ public class ClientReadyTest {
         String sessionId = "wait-test";
 
         // Just init world
-        mockMvc.perform(get("/api/init").param("sessionId", sessionId))
+        mockMvc.perform(get("/api/init").param("width", "20")
+                        .param("height", "20").param("sessionId", sessionId))
                 .andExpect(status().isOk());
 
         // Wait a bit to simulate game tick
         Thread.sleep(6000);//under this config it needs less then 6 sec for enemy to find player
 
         // Game should still be RUNNING (not LOST/WON)
-        mockMvc.perform(get("/api/state").param("sessionId", sessionId))
+        mockMvc.perform(get("/api/state").param("width", "20")
+                        .param("height", "20").param("sessionId", sessionId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("RUNNING"));
     }
@@ -51,7 +46,8 @@ public class ClientReadyTest {
 
         Thread.sleep(500);
 
-        mockMvc.perform(get("/api/state").param("sessionId", sessionId))
+        mockMvc.perform(get("/api/state").param("width", "20")
+                        .param("height", "20").param("sessionId", sessionId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").exists());
     }

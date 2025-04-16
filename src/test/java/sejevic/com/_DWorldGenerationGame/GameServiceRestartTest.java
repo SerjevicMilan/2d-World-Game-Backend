@@ -37,7 +37,8 @@ public class GameServiceRestartTest {
         Thread.sleep(200); // allow state to regenerate
 
         MvcResult result2 = mockMvc.perform(get("/api/state")
-                        .param("sessionId", sessionId))
+                .param("width", "20")
+                        .param("height", "20").param("sessionId", sessionId))
                 .andReturn();
 
         String stateAfter = result2.getResponse().getContentAsString();

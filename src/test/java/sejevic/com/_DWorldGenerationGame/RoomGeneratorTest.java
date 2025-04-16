@@ -12,9 +12,9 @@ import static com.google.common.truth.Truth.assertThat;
 public class RoomGeneratorTest {
     @Test
     public void basicRoomGeneratorTest() {
-        RoomGenerator Rg = new RoomGenerator(new Random(2), 50, 80,2, 10);
+        RoomGenerator Rg = new RoomGenerator(new Random(2), 50, 80);
         List<Room> rooms = Rg.generateRooms(0.25);
 
-        assertThat(rooms.size()).isEqualTo(6);
+        assertThat(rooms.size()).isEqualTo(8);
     }
 }

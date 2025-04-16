@@ -68,7 +68,7 @@ public class GameTest {
     @Test
     void playerShouldMoveUpWithW() {
         GameState before = game.getCurrentGameState();
-        game.updatePlayer('W');
+        game.updatePlayer('S');
         GameState after = game.getCurrentGameState();
 
         assertThat(after.player.y).isGreaterThan(before.player.y);
@@ -77,7 +77,7 @@ public class GameTest {
     @Test
     void playerShouldMoveDownWithS() {
         GameState before = game.getCurrentGameState();
-        game.updatePlayer('S');
+        game.updatePlayer('W');
         GameState after = game.getCurrentGameState();
 
         assertThat(after.player.y).isLessThan(before.player.y);

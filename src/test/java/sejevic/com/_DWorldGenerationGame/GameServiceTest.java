@@ -42,10 +42,12 @@ public class GameServiceTest {
                 .andExpect(status().isOk());
 
         // Get both states
-        MvcResult result1 = mockMvc.perform(get("/api/state").param("sessionId", session1))
+        MvcResult result1 = mockMvc.perform(get("/api/state").param("width", "20")
+                        .param("height", "20").param("sessionId", session1))
                 .andReturn();
 
-        MvcResult result2 = mockMvc.perform(get("/api/state").param("sessionId", session2))
+        MvcResult result2 = mockMvc.perform(get("/api/state").param("width", "20")
+                        .param("height", "20").param("sessionId", session2))
                 .andReturn();
 
         String json1 = result1.getResponse().getContentAsString();

@@ -13,27 +13,28 @@ import static sejevic.com._DWorldGenerationGame.core.utils.RandomUtils.uniform;
 public class RoomGenerator {
     private int width;
     private int height;
-    private int maxRoomsSize;
-    private int minRoomsSize;
+    private final int maxRoomsSize = 8;//both width and height
+    private final int minRoomsSize = 2;//both width and height
     List<Room> rooms = new ArrayList<>();
     Random random;
     private static final int AVERAGE_ROOM_AREA = 60;
 
     //take pseudo random number generator and 2d world dimensions
-    public RoomGenerator(Random random, int height, int width, int minRoomsSize, int maxRoomsSize) {
+    public RoomGenerator(Random random, int height, int width) {
         this.width = width;
         this.height = height;
         this.random = random;
-        this.maxRoomsSize = maxRoomsSize;
-        this.minRoomsSize = minRoomsSize;
     }
 
     //generate random rooms(number of rooms depends on density)
     public List<Room> generateRooms(double density) {
         int numberOfRooms = calcNumberOfRooms(density);
+        Room room;
 
         for (int i = 0; i < numberOfRooms; i++) {
-            rooms.add(generateRoom());
+            room = generateRoom(0);
+            if (room == null) { break; }//in case creation impossible
+            rooms.add(room);
         }
         return rooms;
     }
@@ -54,23 +55,23 @@ public class RoomGenerator {
     }
 
     //generate random position and room size and create new Room
-    private Room generateRoom() {
+    private Room generateRoom(int numberOfTries) {
         Coordinate pos = new Coordinate(uniform(random, width), uniform(random, height));
         int roomWidth = uniform(random, minRoomsSize, maxRoomsSize);
         int roomHeight = uniform(random, minRoomsSize, maxRoomsSize);
         Room room;
 
-        if (!canPlace(pos, roomWidth, roomHeight)) {
-            return generateRoom();
+        if (numberOfTries > 200) {//safety from stack overflow
+            return null;
         }
 
-        room = new Room(pos, roomHeight, roomWidth);
 
-        if (occupied(room)) {
-            return generateRoom();
+        if (canPlace(pos, roomWidth, roomHeight)) {
+            room = new Room(pos, roomHeight, roomWidth);
+            if (!occupied(room)) { return room; }
         }
 
-        return room;
+        return generateRoom(numberOfTries + 1);
     }
 
     //check if there is already room in that area

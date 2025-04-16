@@ -24,7 +24,8 @@ public class GameControllerTest {
     @Test
     void shouldReturnInitialWorldLayout() throws Exception {
         mockMvc.perform(get("/api/init")
-                        .param("sessionId", sessionId))
+                .param("width", "20")
+                        .param("height", "20").param("sessionId", sessionId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.floors").exists())
                 .andExpect(jsonPath("$.walls").exists());
@@ -33,7 +34,8 @@ public class GameControllerTest {
     @Test
     void shouldReturnInitialGameState() throws Exception {
         mockMvc.perform(get("/api/state")
-                        .param("sessionId", sessionId))
+                .param("width", "20")
+                        .param("height", "20").param("sessionId", sessionId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status").value("RUNNING"));
     }
