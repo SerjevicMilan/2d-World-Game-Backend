@@ -12,6 +12,10 @@ public class Game {
     private volatile boolean running = true;
     private volatile boolean clientReady = false;
 
+    /**
+    Generate new game, assign new tread.
+    Run it until victory or defeat condition is meet .
+     */
     @Autowired
     public Game(WorldState worldState, GameProperties config) {
         this.worldState = worldState;
@@ -24,13 +28,12 @@ public class Game {
                 config.getDensity()
         );
 
-
+        //assign new thread
         new Thread(this::runGameLoop).start();
     }
 
     private void runGameLoop() {
-        waitForInitilisation();
-
+        waitForInitilisation();//wait until serRunning is called
         while (running) {
             try {
                 Thread.sleep(GAME_TICK_MS);
@@ -38,7 +41,6 @@ public class Game {
 
                 if (worldState.getStatus() != GameStatus.RUNNING) {
                     running = false;
-                    System.out.println("Game ended with status: " + worldState.getStatus());
                 }
 
             } catch (InterruptedException e) {
@@ -48,6 +50,9 @@ public class Game {
         }
     }
 
+    /**
+    wait until serRunning is called
+     */
     private void waitForInitilisation() {
         while (!clientReady) {
             try {
@@ -58,9 +63,13 @@ public class Game {
         }
     }
 
+    /**
+     *set game running
+     */
     public void setRunning(boolean ready) {
         this.clientReady = ready;
     }
+
 
     public void updatePlayer(char direction) {
         worldState.updatePlayerPosition(direction);
@@ -83,6 +92,9 @@ public class Game {
         return update;
     }
 
+    /**
+     *Generate random number that we can as a seed
+     */
     private static int getSeed() {
         return (int)(Math.random() * Integer.MAX_VALUE);
     }

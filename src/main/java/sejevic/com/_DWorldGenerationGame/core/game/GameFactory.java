@@ -12,6 +12,9 @@ public class GameFactory {
         this.defaultProperties = defaultProperties;
     }
 
+    /**
+    Create new game using default config and random seed
+     */
     public Game createNewGame() {
         GameProperties config = new GameProperties();
         config.setWidth(defaultProperties.getWidth());
@@ -21,6 +24,9 @@ public class GameFactory {
         return new Game(new WorldState(), config);
     }
 
+    /**
+    Create game with custom height and width and random seed
+     */
     public Game createNewGame(String width, String height) {
         GameProperties config = new GameProperties();
         config.setWidth(Integer.parseInt(width));
